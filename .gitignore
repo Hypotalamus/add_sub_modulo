@@ -1,0 +1,8 @@
+work
+*.mti
+*.wlf
+transcript
+*.mpf
+add_sub_modulo_lib
+sim_add_sub_modulo
+.vscode
