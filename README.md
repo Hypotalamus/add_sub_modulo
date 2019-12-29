@@ -1,24 +1,28 @@
 Субмодуль add_sub_modulo реализует операцию «Сложение со сворачиванием в min_value..max_value». Его интерфейс представлен ниже:
-![interface](img/add_sub_modulo_interface.jpg)
+
+<p align="center">
+ <img src="img/add_sub_modulo_interface.jpg"></img>
+</p>
  
-На вход din подается число в формате unsigned, значение которого $min_value <= din <= max_value, max_value > min_value >= 0$. На вход delta_din подается число в формате signed.
-- Если $max_value-min_value+1=M$ – четное число, то $delta_din\in[-M/2,M/2)$.
-- Если M – нечетное число, то $delta_din\in[-(M-1)/2,(M-1)/2]$.
-_Пример_
+На вход din подается число в формате unsigned, значение которого min_value &le; din &le; max_value, max_value > min_value &ge; 0. На вход delta_din подается число в формате signed.
+- Если max_value - min_value + 1 = M – четное число, то delta_din &isin; [-M/2, M/2).
+- Если M – нечетное число, то delta_din &isin; [-(M-1)/2, (M-1)/2].
+<p><u>Пример</u></p>
 Если M = 12, то delta_din должно принадлежать диапазону [-6, 5].
-_Пример_
+<p><u>Пример</u></p>
 Если M = 13, то delta_din должно принадлежать диапазону [-6, 6].
 
 На вход min_value, max_value подаются числа формата unsigned, определяющие рабочий диапазон.
 На выходе dout формируется сумма din + delta_din, свернутая в диапазон значений min_value..max_value.
 Для сложения/вычитания со сворачиванием в min_value..max_value необходимо выполнить следующую последовательность действий:
-- вычислить $M=max_value-min_value+1$;
+- вычислить M = max_value - min_value + 1;
 - преобразовать din в din’, свернув din из диапазона [min_value, max_value] в [0, М);
 - преобразовать signed delta_din в unsigned delta_din’, свернув delta_din в диапазон [0, M);
 - вычислить dout’ = (din’ + delta_din’) mod M;
 - преобразовать dout’ в dout, свернув dout’ из диапазона [0, M) в [min_value, max_value].
 
 Диаграмма потока данных представлена ниже:
+
 ![dataflow](img/modulo_adder_dataflow.jpg)
 
 Чтобы запустить тестирование в Modelsim, необходимо:
